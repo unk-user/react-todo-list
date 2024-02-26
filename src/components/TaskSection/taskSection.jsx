@@ -1,8 +1,9 @@
-import { v4 } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import { useState } from 'react';
 import propTypes from 'prop-types';
 import Task from './task';
 import CreateTaskForm from './createTaskform';
+import './taskSection.scss';
 
 export default function TaskSection({ todoList, setTodoList, projectIndex }) {
   const tasks = todoList[projectIndex].tasks;
@@ -21,28 +22,6 @@ export default function TaskSection({ todoList, setTodoList, projectIndex }) {
 
   return (
     <div className="tasks">
-      {tasks.map((task, index) => {
-        return (
-          <>
-            {!openForm.isOpen || openForm.taskIndex !== index ? (
-              <Task
-                task={task}
-                setOpenForm={setOpenForm}
-                taskIndex={index}
-                key={v4}
-              />
-            ) : (
-              <CreateTaskForm
-                todoList={todoList}
-                setTodoList={setTodoList}
-                projectIndex={projectIndex}
-                taskIndex={index}
-                setOpenForm={setOpenForm}
-              />
-            )}
-          </>
-        );
-      })}
       {openForm.isOpen && openForm.taskIndex === null ? (
         <>
           <CreateTaskForm
@@ -58,6 +37,33 @@ export default function TaskSection({ todoList, setTodoList, projectIndex }) {
           Add task
         </div>
       )}
+
+      <div key={uuidV4()} className="task-container">
+        {tasks.map((task, index) => {
+          return (
+            <>
+              {!openForm.isOpen || openForm.taskIndex !== index ? (
+                <Task
+                  task={task}
+                  setOpenForm={setOpenForm}
+                  taskIndex={index}
+                  todoList={todoList}
+                  setTodoList={setTodoList}
+                  projectIndex={projectIndex}
+                />
+              ) : (
+                <CreateTaskForm
+                  todoList={todoList}
+                  setTodoList={setTodoList}
+                  projectIndex={projectIndex}
+                  taskIndex={index}
+                  setOpenForm={setOpenForm}
+                />
+              )}
+            </>
+          );
+        })}
+      </div>
     </div>
   );
 }

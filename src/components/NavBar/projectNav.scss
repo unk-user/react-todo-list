@@ -1,0 +1,74 @@
+.project-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding-left: 8px;
+  p {
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+  input {
+    margin: 8px 0;
+    padding: 3px 0;
+    width: 150px;
+    border: 0;
+    background-color: rgb(251, 248, 155);
+  }
+  input:focus {
+    outline: none;
+  }
+  button {
+    padding: 3px 2px;
+    background-color: rgb(146, 253, 156);
+    border: 0;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+  button:active {
+    transform: scale(0.95);
+    outline: 1px solid rgba(0, 0, 0, 0.438);
+  }
+  .remove-project {
+    background-color: transparent;
+    transition: background 300ms ease-out;
+  }
+  .remove-project:hover {
+    background-color: rgb(255, 128, 128);
+  }
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-bar {
+  position: relative;
+  width: 250px;
+  height: 100vh;
+  padding-left: 15px;
+  .add-project {
+    display: flex;
+    align-items: center;
+    height: 40px;
+
+    p:hover {
+      cursor: pointer;
+    }
+
+    :first-child {
+      text-align: center;
+      box-sizing: border-box;
+      margin: 20px 10px;
+      width: 100%;
+    }
+  }
+}
+
+.navHeader h1{
+  font-size: 2rem;
+  margin: 5px 0;
+}

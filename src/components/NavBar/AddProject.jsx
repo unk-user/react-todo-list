@@ -5,6 +5,9 @@ import NewProjectInput from './newProjectInput';
 export default function AddProject({ todoList, setTodoList }) {
   const [openInput, setOpenInput] = useState(false);
 
+
+  
+
   const handleClick = () => {
     setOpenInput(!openInput);
   };
@@ -13,7 +16,7 @@ export default function AddProject({ todoList, setTodoList }) {
     <div className="add-project">
       {!openInput ? (
         <>
-          <p onClick={handleClick}>Add project</p>
+          <p onClick={handleClick} id='addProject'>Add project</p>
         </>
       ) : (
         <NewProjectInput

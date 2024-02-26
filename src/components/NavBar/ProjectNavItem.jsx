@@ -7,7 +7,8 @@ export default function ProjectNavItem({
   setTodoList,
   renameOpen,
   setRenameOpen,
-  setSelectedProjectIndex
+  setSelectedProjectIndex,
+  selectedProjectIndex,
 }) {
   const name = todoList[projectIndex].projectName;
   const [newName, setNewName] = useState(name);
@@ -41,11 +42,21 @@ export default function ProjectNavItem({
         }
       }
     };
+    const handleExitClick = (e) => {
+      if (e.target.className !== 'nav-name-input' && e.target.id !== 'project-name') {
+        setRenameOpen({
+          isOpen: false,
+          projectIndex: null,
+        });
+      }
+    };
 
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('click', handleExitClick);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('click', handleExitClick);
     };
   }, [renameOpen, newName]);
 
@@ -58,16 +69,24 @@ export default function ProjectNavItem({
       projectIndex: projectIndex,
     });
   };
-  
-  const handleClick = () => {
-    console.log(projectIndex);
-    setSelectedProjectIndex(projectIndex);
+
+  const handleClick = (e) => {
+    if (e.target.id === 'remove-project') {
+      removeProject();
+    } else if (e.target.id === 'project-name') {
+      openRename();
+    } else {
+      setSelectedProjectIndex(projectIndex);
+    }
   };
 
   const removeProject = () => {
     const updatedList = todoList.filter((project) => {
       return project.projectName !== name;
     });
+    setSelectedProjectIndex(
+      projectIndex == selectedProjectIndex ? projectIndex - 1 : 0
+    );
     setTodoList(updatedList);
   };
 
@@ -76,22 +95,25 @@ export default function ProjectNavItem({
       {renameOpen.isOpen && renameOpen.projectIndex === projectIndex ? (
         <>
           <input
+            name="navName"
             type="text"
             className="nav-name-input"
             placeholder={name}
             onChange={handleInput}
           />
-          <button className="save-project-name" onClick={editName}></button>
+          <button className="save-project-name" onClick={editName}>
+            save
+          </button>
         </>
       ) : (
         <>
-          <p className="project-nav-name" onClick={openRename}>
+          <p className="project-nav-name" id="project-name">
             {name}
           </p>
           {!todoList[projectIndex].default && (
-            <div className="remove-project" onClick={removeProject}>
+            <button className="remove-project" id="remove-project">
               remove
-            </div>
+            </button>
           )}
         </>
       )}
@@ -105,5 +127,6 @@ ProjectNavItem.propTypes = {
   setTodoList: propTypes.func,
   renameOpen: propTypes.object,
   setRenameOpen: propTypes.func,
-  setSelectedProjectIndex: propTypes.func
+  setSelectedProjectIndex: propTypes.func,
+  selectedProjectIndex: propTypes.number,
 };

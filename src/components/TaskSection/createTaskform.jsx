@@ -44,7 +44,7 @@ export default function CreateTaskForm({
   };
 
   return (
-    <form className="task-form" onSubmit={handleSubmit}>
+    <form className="task-form" name='task-form' onSubmit={handleSubmit}>
       <fieldset>
         <legend>Edit task</legend>
         <label htmlFor="task-title">Title</label>
@@ -57,7 +57,7 @@ export default function CreateTaskForm({
           onChange={handleInput}
           required
           minLength={0}
-          maxLength={20}
+          maxLength={15}
         />
         <label htmlFor="task-description">Description</label>
         <input
