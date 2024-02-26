@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import './taskForm.scss';
 
 export default function CreateTaskForm({
   todoList,
@@ -8,6 +9,22 @@ export default function CreateTaskForm({
   taskIndex,
   setOpenForm,
 }) {
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        handleSubmit(e);
+      } else if (e.key === 'Escape') {
+        closeForm();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
+
   const [task, setTask] = useState(
     taskIndex !== null
       ? todoList[projectIndex].tasks[taskIndex]
@@ -27,73 +44,80 @@ export default function CreateTaskForm({
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const updatedList = [...todoList];
-    const updatedTask = { ...task };
-    if(taskIndex !== null) {
-      updatedList[projectIndex].tasks[taskIndex] = updatedTask;
-    } else {
-      updatedList[projectIndex].tasks.push(updatedTask)
-    }
-    setTodoList(updatedList);
+  const closeForm = () => {
     setOpenForm({
       isOpen: false,
       taskIndex: 0,
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedList = [...todoList];
+    const updatedTask = { ...task };
+    if (taskIndex !== null) {
+      updatedList[projectIndex].tasks[taskIndex] = updatedTask;
+    } else {
+      updatedList[projectIndex].tasks.push(updatedTask);
+    }
+    setTodoList(updatedList);
+    closeForm();
+  };
+
   return (
-    <form className="task-form" name='task-form' onSubmit={handleSubmit}>
+    <form className="task-form" name="task-form" onSubmit={handleSubmit}>
       <fieldset>
-        <legend>Edit task</legend>
-        <label htmlFor="task-title">Title</label>
         <input
           type="text"
           id="task-title"
           name="title"
-          placeholder="Enter task tile"
+          className='task-form-title'
+          placeholder="Task title"
           value={task.title}
           onChange={handleInput}
           required
           minLength={0}
           maxLength={15}
         />
-        <label htmlFor="task-description">Description</label>
         <input
           minLength={0}
           maxLength={250}
           type="text"
           id="task-description"
           name="description"
-          placeholder="Add task details"
+          placeholder="Description"
           value={task.description}
           onChange={handleInput}
           required
         />
-        <label htmlFor="task-date">Due date</label>
-        <input
-          type="date"
-          id="task-date"
-          name="date"
-          placeholder="new Task"
-          value={task.date}
-          onChange={handleInput}
-        />
-        <label htmlFor="task-priority">Priority</label>
-        <select
-          name="priority"
-          id="task-priority"
-          value={task.priority}
-          onChange={handleInput}
-          required
-        >
-          <option value="low">low</option>
-          <option value="medium">medium</option>
-          <option value="high">high</option>
-          <option value="urgent">urgent</option>
-        </select>
-        <button type="submit">Save</button>
+        <div className="optional-input">
+          <label htmlFor="task-date">Deadline</label>
+          <input
+            type="date"
+            id="task-date"
+            name="date"
+            placeholder="new Task"
+            value={task.date}
+            onChange={handleInput}
+          />
+          <label htmlFor="task-priority">Priority</label>
+          <select
+            name="priority"
+            id="task-priority"
+            value={task.priority}
+            onChange={handleInput}
+            required
+          >
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+            <option value="urgent">urgent</option>
+          </select>
+        </div>
+        <div className="action-buttons">
+          <button onClick={closeForm} className='cancel-button'>Cancel</button>
+          <button type="submit" className='submit-button'>Save</button>
+        </div>
       </fieldset>
     </form>
   );

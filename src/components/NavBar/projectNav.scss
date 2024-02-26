@@ -47,9 +47,18 @@
 
 .nav-bar {
   position: relative;
-  width: 250px;
+  min-width: 250px;
   height: 100vh;
   padding-left: 15px;
+  padding-right: 10px;
+  background-color: beige;
+  transition: transform 500ms ease;
+    div {
+      opacity: 1;
+      transition-property: max-width opacity;
+      transition-duration: 500ms;
+      transition-timing-function: ease-in;
+    }
   .add-project {
     display: flex;
     align-items: center;
@@ -66,9 +75,36 @@
       width: 100%;
     }
   }
+  &.collapsed {
+    position: absolute;
+    transform: translateX(calc(30px - 250px));
+    div {
+      opacity: 0;
+      max-width: 0;
+      div {
+        display: none;
+      }
+    }
+  }
 }
 
-.navHeader h1{
-  font-size: 2rem;
-  margin: 5px 0;
+.navHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 15px 5px;
+  h1 {
+    font-size: 1.8rem;
+  }
+  img {
+    width: 26px;
+    transition: transform 2s ease-out;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+  img.open {
+    transform: rotate(-720deg);
+  }
 }

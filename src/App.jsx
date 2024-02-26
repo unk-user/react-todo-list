@@ -23,6 +23,12 @@ export default function App() {
     );
   });
 
+  
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleNavBar = () => {
+    setIsCollapsed(!isCollapsed);
+  }
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
 
   useEffect(() => {
@@ -36,8 +42,10 @@ export default function App() {
         setTodoList={setTodoList}
         setSelectedProjectIndex={setSelectedProjectIndex}
         selectedProjectIndex={selectedProjectIndex}
+        handleNavBar={handleNavBar}
+        isCollapsed={isCollapsed}
       />
-      <main>
+      <main className={isCollapsed && 'form-collapsed-main'}>
         <header className="project-header">
           {todoList[selectedProjectIndex].projectName}
         </header>
