@@ -9,6 +9,8 @@ export default function CreateTaskForm({
   taskIndex,
   setOpenForm,
 }) {
+
+
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === 'Enter') {
@@ -17,6 +19,10 @@ export default function CreateTaskForm({
         closeForm();
       }
     };
+    const inputElement = document.getElementById('task-title');
+    if (inputElement) {
+      inputElement.focus();
+    }
 
     document.addEventListener('keydown', handleKeyPress);
 
@@ -65,7 +71,7 @@ export default function CreateTaskForm({
   };
 
   return (
-    <form className="task-form" name="task-form" onSubmit={handleSubmit}>
+    <form className='task-form' name="task-form" onSubmit={handleSubmit}>
       <fieldset>
         <input
           type="text"
@@ -91,7 +97,7 @@ export default function CreateTaskForm({
           required
         />
         <div className="optional-input">
-          <label htmlFor="task-date">Deadline</label>
+          <label htmlFor="task-date">Due date</label>
           <input
             type="date"
             id="task-date"

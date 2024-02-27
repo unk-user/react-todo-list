@@ -45,7 +45,7 @@ export default function App() {
         handleNavBar={handleNavBar}
         isCollapsed={isCollapsed}
       />
-      <main className={isCollapsed && 'form-collapsed-main'}>
+      <main>
         <header className="project-header">
           {todoList[selectedProjectIndex].projectName}
         </header>

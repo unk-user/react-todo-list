@@ -22,26 +22,10 @@ export default function TaskSection({ todoList, setTodoList, projectIndex }) {
 
   return (
     <div className="tasks">
-      {openForm.isOpen && openForm.taskIndex === null ? (
-        <>
-          <CreateTaskForm
-            todoList={todoList}
-            setTodoList={setTodoList}
-            projectIndex={projectIndex}
-            taskIndex={null}
-            setOpenForm={setOpenForm}
-          />
-        </>
-      ) : (
-        <div className="add-task" onClick={openAddTask}>
-          Add task
-        </div>
-      )}
-
-      <div key={uuidV4()} className="task-container">
+      <div className="task-container">
         {tasks.map((task, index) => {
           return (
-            <>
+            <div key={uuidV4()}>
               {!openForm.isOpen || openForm.taskIndex !== index ? (
                 <Task
                   task={task}
@@ -60,10 +44,25 @@ export default function TaskSection({ todoList, setTodoList, projectIndex }) {
                   setOpenForm={setOpenForm}
                 />
               )}
-            </>
+            </div>
           );
         })}
       </div>
+      {openForm.isOpen && openForm.taskIndex === null ? (
+        <>
+          <CreateTaskForm
+            todoList={todoList}
+            setTodoList={setTodoList}
+            projectIndex={projectIndex}
+            taskIndex={null}
+            setOpenForm={setOpenForm}
+          />
+        </>
+      ) : (
+        <div className="add-task" onClick={openAddTask}>
+          Add task
+        </div>
+      )}
     </div>
   );
 }

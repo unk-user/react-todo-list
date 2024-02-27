@@ -33,7 +33,7 @@ export default function Task({
   };
 
   return (
-    <div className="task-item">
+    <div className={`task-item ${task.priority} ${task.done && 'done'}`}>
       <input
         type="checkbox"
         name="task-completed"

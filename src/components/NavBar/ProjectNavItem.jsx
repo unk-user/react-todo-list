@@ -73,8 +73,6 @@ export default function ProjectNavItem({
   const handleClick = (e) => {
     if (e.target.id === 'remove-project') {
       removeProject();
-    } else if (e.target.id === 'project-name') {
-      openRename();
     } else {
       setSelectedProjectIndex(projectIndex);
     }
@@ -107,7 +105,7 @@ export default function ProjectNavItem({
         </>
       ) : (
         <>
-          <p className="project-nav-name" id="project-name">
+          <p className={`project-nav-name ${selectedProjectIndex === projectIndex && 'selected'}`} id="project-name" onDoubleClick={openRename}>
             {name}
           </p>
           {!todoList[projectIndex].default && (

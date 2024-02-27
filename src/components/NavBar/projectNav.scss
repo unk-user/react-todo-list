@@ -1,27 +1,41 @@
+@import '../../index.scss';
+
 .project-nav-item {
+  color: $tertiary;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 40px;
   padding-left: 8px;
+  &:hover {
+    color: $tertiary-muted;
+  }
   p {
     margin: 8px 0;
     font-size: 1rem;
+    &.selected {
+      color: #a1a2ce;
+    }
   }
   input {
     margin: 8px 0;
     padding: 3px 0;
     width: 150px;
     border: 0;
-    background-color: rgb(251, 248, 155);
+    background-color: $secondary;
+    color: $tertiary;
+    font-size: 0.9em;
+    border-radius: 4px;
+    padding-left: 5px;
   }
   input:focus {
     outline: none;
   }
   button {
-    padding: 3px 2px;
-    background-color: rgb(146, 253, 156);
+    padding: 4px 5px;
+    background-color: $logo-color;
     border: 0;
+    border-radius: 4px;
   }
   button:hover {
     cursor: pointer;
@@ -32,10 +46,11 @@
   }
   .remove-project {
     background-color: transparent;
+    color: #7DABCA;
     transition: background 300ms ease-out;
   }
   .remove-project:hover {
-    background-color: rgb(255, 128, 128);
+    background-color: $secondary;
   }
 }
 
@@ -43,29 +58,46 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
 }
 
 .nav-bar {
-  position: relative;
+  background-color: $primary-color;
   min-width: 250px;
-  height: 100vh;
-  padding-left: 15px;
-  padding-right: 10px;
-  background-color: beige;
-  transition: transform 500ms ease;
+  min-height: 100vh;
+  padding: 0 10px;
+  transition: margin 500ms ease;
     div {
       opacity: 1;
-      transition-property: max-width opacity;
-      transition-duration: 500ms;
-      transition-timing-function: ease-in;
+      transition: opacity 500ms ease;
     }
   .add-project {
     display: flex;
     align-items: center;
-    height: 40px;
+    height: 40px; 
+    color: $secondary;
+
+    input {
+      background-color: $secondary;
+      font-weight: 500;
+      color: $tertiary;
+      border-radius: 4px;
+      height: 25px;
+      border: 0;
+      &::placeholder {
+        color: $secondary-muted;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
 
     p:hover {
       cursor: pointer;
+      color: $secondary-muted;
     }
 
     :first-child {
@@ -76,14 +108,16 @@
     }
   }
   &.collapsed {
-    position: absolute;
-    transform: translateX(calc(30px - 250px));
+    margin-left: -220px;
     div {
       opacity: 0;
-      max-width: 0;
-      div {
-        display: none;
-      }
+      pointer-events: none;
+    }
+    button {
+      pointer-events: none;
+    }
+    .navHeader {
+      border-bottom: 1px solid rgba(128, 128, 128, 0);
     }
   }
 }
@@ -91,20 +125,23 @@
 .navHeader {
   display: flex;
   align-items: center;
+  color: $logo-color;
   justify-content: space-between;
   height: 50px;
   padding: 15px 5px;
+  border-bottom: 2px solid #7c80a433;
+  transition: 500ms ease-in-out;
   h1 {
     font-size: 1.8rem;
   }
   img {
     width: 26px;
-    transition: transform 2s ease-out;
+    transition: transform 700ms ease-out;
   }
   img:hover {
     cursor: pointer;
   }
   img.open {
-    transform: rotate(-720deg);
+    transform: rotate(360deg);
   }
 }
