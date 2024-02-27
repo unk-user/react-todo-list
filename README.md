@@ -2,6 +2,8 @@
 
 This is a simple Todo List project built with Vite, React, and SCSS. The project allows users to manage tasks within different projects.
 
+![screenshot of webapp](./public/Screenshot%202024-02-27%20181242.png);
+
 ## Features
 
 - Add, edit, and remove projects.
